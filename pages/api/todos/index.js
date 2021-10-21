@@ -9,13 +9,13 @@ export default async function handler(request, response) {
 
     switch (request.method) {
       case 'GET':
-        const todos = []; // TODO: find all todos
+        const todos = await collection.find().toArray();
         response.status(200).json(todos);
         break;
 
       case 'POST':
         const newTodo = sanitizeTodo(request.body);
-        const insertResult = {}; // TODO: insert newTodo
+        const insertResult = await collection.insertOne(newTodo);
         response.status(200).json(insertResult);
         break;
 

@@ -12,18 +12,21 @@ export default async function handler(request, response) {
 
     switch (request.method) {
       case 'GET':
-        const todo = {}; // TODO: find todo for _id
+        const todo = await collection.findOne({ _id });
         response.status(200).json(todo);
         break;
 
       case 'PUT':
         const updatedTodo = sanitizeTodo(request.body);
-        const updateResult = {}; // TODO: update todo for _id with updatedTodo
+        const updateResult = await collection.updateOne(
+          { _id },
+          { $set: updatedTodo },
+        );
         response.status(200).json(updateResult);
         break;
 
       case 'DELETE':
-        const deleteResult = {}; // TODO: delete todo for _id
+        const deleteResult = await collection.deleteOne({ _id });
         response.status(200).json(deleteResult);
         break;
 
